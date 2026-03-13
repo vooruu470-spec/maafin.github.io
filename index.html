@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maafin Akuu Yaa 🤍</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Neue', 'Poppins', cursive, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #ffe4ec 0%, #ffb6c1 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animasi latar belakang */
+        .floating-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .heart {
+            position: absolute;
+            color: rgba(255, 105, 180, 0.2);
+            font-size: 24px;
+            animation: float 6s infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(1); opacity: 0; }
+            50% { opacity: 0.5; }
+            100% { transform: translateY(-20vh) scale(1.2); opacity: 0; }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 60px 60px 40px 40px;
+            padding: 40px 30px;
+            box-shadow: 0 25px 40px rgba(255, 20, 147, 0.25),
+                        0 0 0 3px #ffb3c6 inset,
+                        0 0 0 6px #ffe4ec inset;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            border: 2px solid #ff99aa;
+            animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .avatar {
+            font-size: 100px;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 10px 15px #ff9eb5);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #ff3388, #ff6eb4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-shadow: 3px 3px 0 #ffccdd;
+            margin-bottom: 15px;
+        }
+
+        .message {
+            font-size: 1.3rem;
+            color: #b34180;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 20px;
+            border-radius: 50px;
+            margin: 25px 0;
+            border: 2px dashed #ff80a5;
+            line-height: 1.6;
+            box-shadow: 0 5px 0 #ffb6c1;
+        }
+
+        .message i {
+            color: #ff3388;
+            font-size: 1.8rem;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 35px 0 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            border: none;
+            padding: 16px 40px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 7px 0 #b3708c, 0 10px 15px rgba(0,0,0,0.1);
+            letter-spacing: 2px;
+            min-width: 150px;
+        }
+
+        .btn.iya {
+            background: #ffb3c6;
+            color: white;
+            text-shadow: 2px 2px 0 #ff6699;
+        }
+
+        .btn.iya:hover {
+            background: #ff99bb;
+            transform: scale(1.05);
+        }
+
+        .btn.tidak {
+            background: #ffe4ec;
+            color: #ff80b3;
+            border: 3px solid #ff99bb;
+            box-shadow: 0 5px 0 #ffb3c6;
+            position: relative;
+        }
+
+        .btn.tidak:hover {
+            background: #ffd4e0;
+        }
+
+        .yakin-btn {
+            background: #ffe484;
+            color: #b34180;
+            border: 4px solid white;
+            padding: 14px 35px;
+            font-size: 1.8rem;
+            border-radius: 60px;
+            font-weight: bold;
+            box-shadow: 0 7px 0 #c2a345, 0 10px 20px pink;
+            cursor: pointer;
+            margin: 20px auto;
+            display: inline-block;
+            transition: 0.1s;
+            position: relative;
+            z-index: 999;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .response-message {
+            background: #ffd9e6;
+            border-radius: 50px;
+            padding: 25px;
+            margin-top: 25px;
+            font-size: 1.5rem;
+            color: #b34180;
+            border: 3px solid white;
+            transform: scale(0);
+            transition: 0.3s;
+            box-shadow: 0 10px 0 #ff99aa;
+        }
+
+        .response-message.show {
+            transform: scale(1);
+        }
+
+        .response-message i {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* Hujan glitter */
+        .glitter {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #ffb3d9;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.6;
+            animation: glitterFall 5s linear infinite;
+        }
+
+        @keyframes glitterFall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0.8; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        footer {
+            margin-top: 30px;
+            color: #ff99bb;
+            font-size: 1rem;
+            text-shadow: 1px 1px white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hati melayang -->
+    <div class="floating-hearts" id="hearts"></div>
+
+    <div class="container">
+        <div class="avatar">🥺🤍</div>
+        <h1>Maafin Akuu...</h1>
+        
+        <div class="message">
+            "Aku nyesel banget udah bikin kamu marah.<br>
+            Tanpa kamu, hariku hambar :(<br>
+            Mau maafin aku? Janji bakal lebih baik!"
+            <i>🍫💐</i>
+        </div>
+
+        <!-- Tombol IYA & TIDAK -->
+        <div class="button-group" id="buttonGroup">
+            <button class="btn iya" id="iyaBtn">IYA 💖</button>
+            <button class="btn tidak" id="tidakBtn">TIDAK 😭</button>
+        </div>
+
+        <!-- Tombol YAKIN? (hidden awal) -->
+        <div id="yakinContainer" class="hidden">
+            <button class="yakin-btn" id="yakinBtn">YAKIN⁉️</button>
+        </div>
+
+        <!-- Pesan setelah IYA ditekan -->
+        <div id="responseMessage" class="response-message hidden">
+            <i>🥹💝</i>
+            I LOVE YOU MORE! 🤍<br>
+            <span style="font-size: 1.2rem;">Aku bakal jadi yang terbaik buat kamu!</span>
+        </div>
+
+        <footer>from someone who really misses you 🌷</footer>
+    </div>
+
+    <script>
+        // ========== BIKIN BACKGROUND HATI ==========
+        function createHearts() {
+            const heartsDiv = document.getElementById('hearts');
+            for (let i = 0; i < 25; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '🌸';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                heart.style.fontSize = Math.random() * 30 + 15 + 'px';
+                heartsDiv.appendChild(heart);
+            }
+        }
+        createHearts();
+
+        // ========== TOMBOL KABUR ==========
+        const tidakBtn = document.getElementById('tidakBtn');
+        const iyaBtn = document.getElementById('iyaBtn');
+        const yakinContainer = document.getElementById('yakinContainer');
+        const yakinBtn = document.getElementById('yakinBtn');
+        const responseMsg = document.getElementById('responseMessage');
+        const container = document.querySelector('.container');
+        const buttonGroup = document.getElementById('buttonGroup');
+
+        // Variabel untuk posisi random
+        let tidakClickCount = 0;
+
+        // Fungsi untuk posisi random di layar
+        function getRandomPosition() {
+            const maxX = window.innerWidth - 200;  // lebar tombol kurang lebih
+            const maxY = window.innerHeight - 150;
+            const x = Math.random() * maxX;
+            const y = Math.random() * maxY;
+            return { x, y };
+        }
+
+        // Tombol TIDAK kabur
+        tidakBtn.addEventListener('mouseenter', function(e) {
+            if (tidakClickCount < 3) {  // 3 kali kabur dulu
+                const pos = getRandomPosition();
+                tidakBtn.style.position = 'fixed';
+                tidakBtn.style.left = pos.x + 'px';
+                tidakBtn.style.top = pos.y + 'px';
+                tidakBtn.style.zIndex = '9999';
+                tidakClickCount++;
+            }
+        });
+
+        // Kalau tombol TIDAK kepegang (klik) -> muncul tombol YAKIN
+        tidakBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (tidakClickCount >= 3) {
+                // Sembunyikan tombol TIDAK, munculin YAKIN
+                tidakBtn.style.display = 'none';
+                yakinContainer.classList.remove('hidden');
+            } else {
+                alert('Hehe, masih bisa kabur nih 😜');
+            }
+        });
+
+        // Tombol YAKIN juga kabur (lebih cepat)
+        yakinBtn.addEventListener('mouseenter', function(e) {
+            const pos = getRandomPosition();
+            yakinBtn.style.position = 'fixed';
+            yakinBtn.style.left = pos.x + 'px';
+            yakinBtn.style.top = pos.y + 'px';
+            yakinBtn.style.zIndex = '9999';
+        });
+
+        // Kalau YAKIN berhasil diklik -> muncul pesan (sama kayak IYA)
+        yakinBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Sembunyikan semua tombol
+            document.querySelectorAll('.btn, .yakin-btn').forEach(btn => {
+                btn.style.display = 'none';
+            });
+            // Tampilkan pesan romantis
+            responseMsg.classList.remove('hidden');
+            responseMsg.classList.add('show');
+        });
+
+        // Tombol IYA (langsung bahagia)
+        iyaBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Sembunyikan semua tombol
+            document.querySelectorAll('.btn, .yakin-btn').forEach(btn => {
+                btn.style.display = 'none';
+            });
+            // Tampilkan pesan romantis
+            responseMsg.classList.remove('hidden');
+            responseMsg.classList.add('show');
+        });
+
+        // Biar tombol nggak keluar dari layar saat di-resize
+        window.addEventListener('resize', () => {
+            // Reset posisi kalau resize
+            tidakBtn.style.position = 'relative';
+            tidakBtn.style.left = 'auto';
+            tidakBtn.style.top = 'auto';
+            if (yakinBtn) yakinBtn.style.position = 'relative';
+        });
+    </script>
+</body>
+</html>
